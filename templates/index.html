@@ -1,0 +1,78 @@
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("h1,tr").css("text-align","center");
+            $("h1","tr").css("color","red");
+            $("h1","tr").css("background_color","yellow");
+            $("h1").css("font-size","50px");
+            $("#tr1").css("font-size","20px")
+            $("tr:even").css("background-color","cyan")
+            $("#eid").blur(
+                function () {
+                    var eid=$("#eid").val()
+                    $.ajax(
+                        {
+                            type:'get',
+                            url:'http://127.0.0.1:8000/check',
+                            data:{"employee_id":eid},
+                            success:function (json_data)
+                            {
+                                if (json_data.k1 !="")
+                                {
+                                    alert(json_data.k1)
+                                }
+                            }
+
+
+                        })
+
+                }
+            )
+
+        })
+    </script>
+</head>
+<body>
+<h1>Employee Details</h1>
+<form method="post" action="{% url 'product' %}">
+    {% csrf_token %}
+<table align="center" border="1">
+    <tr>
+        <th>
+        Employee Registartion
+    </th></tr>
+    <tr>
+        <th>
+            <input type="number" placeholder="IDNO" required id="eid">
+        </th>
+    </tr>
+   <tr><th> <input type="text" placeholder="NAME" required id="name"></th></tr>
+   <tr><th> <input type="number" placeholder="SALARY" required id="salary"></th></tr>
+   <tr><th> <input type="tel" placeholder="CONTACTNO" required id="contact"></th></tr>
+   <tr><th> <input type="password" placeholder="PASSWORD" required id="password"></th></tr>
+    <tr><th><button type="submit">ADD</button></th></tr>
+
+</table></form>
+<table align="center" border="2">
+    <tr id="tr1"><th width="100">IDNO</th>
+    <th width="100">NAME</th>
+    <th width="100">SALARY</th>
+    <th width="100">CONTACCT</th>
+    <th width="100">EMAILID</th>
+    <th width="100">PASSWORD</th>
+    </tr>
+    {% for x in object_list %}
+        <tr id="tr2"><th width="100">{{ x.eid }}</th>
+    <th width="100">{{x.name}}</th>
+            <th width="100">{{ x.salary }}</th>
+            <th width="100">{{ x.contact }}</th>
+            <th width="100">{{ x.email }}</th>
+            <th width="100">{{ x.password }}</th>
+        </tr></table>
+
+    {% endfor %}
+</body>
+</html></th></tr>
+</table>
